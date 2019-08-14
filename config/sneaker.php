@@ -26,7 +26,9 @@ return [
     'capture' => [
         Symfony\Component\Debug\Exception\FatalErrorException::class,
     ],
-
+    'ignore' => [
+        \League\OAuth2\Server\Exception\OAuthServerException,
+    ],
     /*
     |--------------------------------------------------------------------------
     | Error email recipients
