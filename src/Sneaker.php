@@ -93,7 +93,7 @@ class Sneaker
             }
         }
     }
-
+    
     /**
      * Capture an exception.
      * 
@@ -130,20 +130,27 @@ class Sneaker
     private function shouldCapture(Exception $exception)
     {
         $capture = $this->config->get('sneaker.capture');
-
+        $ignore = $this->config->get('sneaker.ignore');
         if (! is_array($capture)) {
             return false;
         }
-
+        
+        foreach ($ignore as $type) {
+            if ($exception instanceof $type) {
+                return false;
+            }
+        }
+        
         if (in_array('*', $capture)) {
             return true;
         }
-
+        
         foreach ($capture as $type) {
             if ($exception instanceof $type) {
                 return true;
             }
         }
+        
 
         return false;
     }
